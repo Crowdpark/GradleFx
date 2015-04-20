@@ -22,7 +22,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'idea'
 
-group = 'org.gradlefx'
+group = 'com.crowdpark'
 version = '1.2.0'
 ext.packaging = 'jar'
 
@@ -41,7 +41,7 @@ if(hasProperty("release")) {
     version += "-SNAPSHOT"
     sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 } else {
-    isDevBuild = true
+//    isDevBuild = true
 }
 
 repositories {
@@ -100,8 +100,8 @@ uploadArchives {
                     beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
                 }
 
-                repository(url: sonatypeRepositoryUrl) {
-                  authentication(userName: sonatypeUsername, password: sonatypePassword)
+                repository (url:"http://nexus.crowdpark-cloud.com:8081/nexus/content/repositories/${project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}") {
+                    authentication(userName: project.properties.get('nexus.crowdpark.username'), password: project.properties.get('nexus.crowdpark.password'))
                 }
 
                 pom.project {
