@@ -22,8 +22,8 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'idea'
 
-group = 'com.crowdpark'
-version = '1.2.0'
+group = 'com.crowdpark.gradle'
+version = '1.2.0-crowdpark'
 ext.packaging = 'jar'
 
 def isDevBuild
@@ -38,7 +38,7 @@ if(hasProperty("release")) {
     sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 } else if (hasProperty("ci")) {
     isCiBuild = true
-    version += "-SNAPSHOT"
+    //version += "-SNAPSHOT"
     sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
 } else {
 //    isDevBuild = true
